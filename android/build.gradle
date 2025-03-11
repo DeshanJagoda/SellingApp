@@ -1,0 +1,66 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.elpitiya_diviction_v2"
+    compileSdk = 27  // Set compileSdk to API level 27 for Android 8.1
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.elpitiya_diviction_v2"
+        minSdk = 21  // Minimum SDK can stay at 21, as it's still compatible
+        targetSdk = 27  // Target Android 8.1 (API level 27)
+        versionCode flutter.versionCode.toInteger()
+        versionName flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            // Update signingConfig only if you are using release signing.
+            signingConfig signingConfigs.release // Use `release` instead of `debug` for production.
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    // Configure signing if required.
+    signingConfigs {
+        release {
+            storeFile file("path/to/your/keystore.jks") // Replace with your keystore path
+            storePassword "your_store_password"
+            keyAlias "your_key_alias"
+            keyPassword "your_key_password"
+        }
+        debug {
+            storeFile file("path/to/debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    implementation "androidx.core:core-ktx:1.12.0"
+    implementation "androidx.annotation:annotation:1.7.0"
+    // Add any other dependencies your app requires.
+}
